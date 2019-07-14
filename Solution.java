@@ -1,38 +1,33 @@
-package leetcode203;
-
+package leetcode350;
+import java.util.ArrayList;
+import java.util.TreeMap;
 /**
  * @author Taochunwei
- * @date 2019/6/30 - 18:01
+ * @date 2019/7/10 - 20:27
  */
-
-class Solution {
-    public ListNode removeElements(ListNode head, int val) {
-        while(head!=null&&head.val==val){
-            ListNode delNode = head;
-            head=head.next;
-            delNode.next=null;
+public class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        TreeMap<Integer,Integer> map=new TreeMap<>();
+        ArrayList<Integer> list=new ArrayList<>();
+        for(int num:nums1){
+            if(!map.containsKey(num)){
+                map.put(num,1);
+            }else
+                map.put(num,map.get(num)+1);
         }
 
-        if (head==null)
-            return null;
-
-        ListNode prev=head;
-        while(prev.next!=null){
-            if(prev.next.val==val){
-                ListNode delNode=prev.next;
-                prev.next = delNode.next;
-                delNode.next=null;
+        for(int num:nums2){
+            if(map.containsKey(num)){
+                list.add(num);
+                map.put(num,map.get(num)-1);
+                if(map.get(num)==0)
+                    map.remove(num);
             }
-            else
-                prev=prev.next;
         }
-        return head;
-    }
-
-    public static void main(String[] args) {
-        int[] nums= new int[]{1, 2, 6, 3, 4, 5, 6};
-        ListNode head= new ListNode(nums);
-        System.out.println(head);
-        System.out.println((new Solution().removeElements(head,6)));
+        int[] res=new int[list.size()];
+        for(int i=0;i<list.size();i++){
+            res[i]=list.get(i);
+        }
+        return res;
     }
 }
