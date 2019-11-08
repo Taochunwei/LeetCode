@@ -7,11 +7,15 @@ public class Solution {
         int k=0;//nums[0....k)中全不为零
 
         for (int i = 0; i <nums.length ; i++) {
-            if(nums[i]!=0)
-                nums[k++]=nums[i];
+            if(nums[i]!=0){
+                swap(i,k++,nums);
+            }
+
         }
-        for (int i=k; i <nums.length ; i++) {
-            nums[i]=0;
-        }
+    }
+    private void swap(int i,int j,int[] nums){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
     }
 }
